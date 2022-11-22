@@ -7,7 +7,6 @@ export default function PollForm(){
     return(
 
         <>
-       <input className="input is-primary" type="text" placeholder="Poll Label"></input>
        {myState.pollForm.questions.map((question, index)=>{
         return(
             <Question inputQuestion={question} key={index} questionIndex={index}></Question>

@@ -1,6 +1,10 @@
+import PollForm from "../components/AddPoll/PollForm";
+
 export class Poll {
+  label:string
   questions : Question[]
   constructor(){
+    this.label=''
     this.questions = [new Question()]
   }
 }
@@ -8,15 +12,15 @@ export class Question{
   options: Option[]
   label: string;
   constructor(){
-    this.options = [new Option('a)', ''), new Option('b)', '')]
+    this.label=''
+    this.options = [new Option(), new Option()]
   }
 }
 export class Option{
-  label: string;
   value: string;
-  constructor(label, value){
-    this.label = label
-    this.value = value
+  constructor(){
+    // this.label = label
+    this.value = ''
   }
 }
 export class AdminState{
@@ -32,19 +36,36 @@ export class AdminState{
 const initialState = new AdminState();
 
 const adminReducer= (state = initialState, action) => {
+
   switch (action.type) {
     case 'ADD_POLL':{
-      let pollsData: Poll[] = state.polls;
-      pollsData.push(action.data)
-      state.polls = pollsData;
-      break;
+      state.polls = [...state.polls,state.pollForm]
+      localStorage.setItem("all_polls",JSON.stringify(state.polls))
+      state.pollForm=new Poll
+
+      return {...state, showPollForm:action.value}
     }
     case 'SHOW_HIDE_POLL_FORM':{
       return {...state, showPollForm:action.value}
     }
+    case 'POLL_LABEL_CHANGE':{
+      const pollForm =  state.pollForm;
+      pollForm.label=action.value
+      return {...state, pollForm:pollForm}
+    }
+    case 'QUESTION_LABEL_CHANGE':{
+      const pollForm =  state.pollForm;
+      pollForm.questions[action.index].label=action.label
+      return {...state, pollForm:pollForm}
+    }
+    case 'OPTION_VALUE_CHANGE':{
+      const pollForm =  state.pollForm;
+      pollForm.questions[action.QuestionIndex].options[action.OptionIndex].value=action.Value
+      return {...state, pollForm:pollForm}
+    }
     case 'ADD_OPTION':{
       const pollForm =  state.pollForm;
-      pollForm.questions[action.index].options.push(new Option('',''))
+      pollForm.questions[action.index].options.push(new Option())
       return {...state, pollForm:pollForm}
     }
     case 'ADD_QUESTION':{
