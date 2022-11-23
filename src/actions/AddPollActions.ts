@@ -23,3 +23,6 @@ export const onQuestionChangeHandler=(index,label)=>{
 export const onOptionChangeHandler=(QuestionIndex,OptionIndex,Value)=>{
    return {type:"OPTION_VALUE_CHANGE",QuestionIndex:QuestionIndex,OptionIndex:OptionIndex,Value:Value }
 }
+export const onClosePollHandler=(index)=>{
+   return {type:"CLOSE_POLL" ,index:index}
+}

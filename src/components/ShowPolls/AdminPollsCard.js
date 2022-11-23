@@ -1,8 +1,11 @@
-function PollsCard(props){
-    
+import { onClosePollHandler } from "../../actions/AddPollActions.ts";
+import {useDispatch} from 'react-redux'
+function AdminPollsCard(props){
+    const dispatch=useDispatch();
     return(
         <>
-         <div className="card">
+       
+         <div className="card" style={{width:'12rem',display:'inline-block',margin:'2rem'}}>
   <header className="card-header">
     <p className="card-header-title">
         {props.poll.label}
@@ -19,10 +22,10 @@ function PollsCard(props){
     </div>
   </div>
   <footer className="card-footer">
-    <button className="card-footer-item"> Close Poll</button> 
+    <button className="card-footer-item" onClick={()=>dispatch(onClosePollHandler(props.index))}> Close Poll</button> 
   </footer>
 </div>
         </>
     )
 }
-export default PollsCard;
+export default AdminPollsCard;

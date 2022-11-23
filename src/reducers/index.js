@@ -1,8 +1,8 @@
-import changeTheNumber from "./upDown";
+import UserReducer from "./UserReducer.ts";
 import adminReducer from "./AdminReducer.ts"
 import {combineReducers} from "redux";
 const rootReducer=combineReducers({
-    changeTheNumber,
+    UserReducer,
     adminReducer
 })
 export default rootReducer;

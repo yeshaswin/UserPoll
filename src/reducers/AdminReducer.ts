@@ -1,10 +1,10 @@
-import PollForm from "../components/AddPoll/PollForm";
-
 export class Poll {
   label:string
+  closed:boolean
   questions : Question[]
   constructor(){
     this.label=''
+    this.closed=false
     this.questions = [new Question()]
   }
 }
@@ -18,6 +18,7 @@ export class Question{
 }
 export class Option{
   value: string;
+  users:[]
   constructor(){
     // this.label = label
     this.value = ''
@@ -44,8 +45,19 @@ const adminReducer= (state = initialState, action) => {
       state.pollForm=new Poll
 
       return {...state, showPollForm:action.value}
+
+    }
+    case 'CLOSE_POLL':{
+      const AllPolls=JSON.parse(localStorage.getItem("all_polls"))
+      console.log(AllPolls)
+      AllPolls[action.index].closed=true
+      console.log(AllPolls)
+      localStorage.setItem("all_polls",JSON.stringify(AllPolls))
+      return {...state, polls:AllPolls}
+
     }
     case 'SHOW_HIDE_POLL_FORM':{
+      state.pollForm=new Poll
       return {...state, showPollForm:action.value}
     }
     case 'POLL_LABEL_CHANGE':{

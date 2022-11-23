@@ -1,7 +1,7 @@
 import PollForm from "../components/AddPoll/PollForm";
 import {useSelector,useDispatch} from "react-redux";
 import {onAddPollClickHandler,onClosePollClickHandler,onSavePollClickHandler,onPollNameChangeHandler} from '../actions/AddPollActions.ts'
-import PollsCard from "../components/ShowPolls/PollsCard";
+import PollsCard from "../components/ShowPolls/AdminPollsCard";
 function AdminPage() {
   const myState=useSelector((state)=>state.adminReducer)
   const dispatch=useDispatch();
@@ -12,13 +12,25 @@ function AdminPage() {
   
     return (
       <div>
-        {AllPolls.map((poll,index)=>{
+                <h1>Admin Page</h1>
+             <div>
+              <h1>open polls</h1> {AllPolls?.map((poll,index)=>{
           return (
-            <PollsCard poll={poll} key={index}></PollsCard>
+             poll.closed?'':<PollsCard poll={poll} key={index} index={index}></PollsCard>
+            
+          )
+        })}</div>
+       <h1>Closed POll</h1>
+        {AllPolls?.map((poll,index)=>{
+          return (
+             poll.closed?<PollsCard poll={poll} key={index} index={index}></PollsCard>:''
+            
           )
         })}
-        <p>Admin Page</p>
-       
+        {/* <div>
+        <ClosedPoll></ClosedPoll>
+        </div> */}
+        
        <div className={modal_acvtive}>
   <div className="modal-background"></div>
   <div className="modal-card">
