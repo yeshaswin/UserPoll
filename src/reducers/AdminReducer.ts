@@ -1,34 +1,35 @@
 export class Poll {
-  label:string
-  closed:boolean
-  questions : Question[]
-  constructor(){
-    this.label=''
-    this.closed=false
+  label: string
+  closed: boolean
+  questions: Question[]
+  constructor() {
+    this.label = ''
+    this.closed = false
     this.questions = [new Question()]
   }
 }
-export class Question{
+export class Question {
   options: Option[]
   label: string;
-  constructor(){
-    this.label=''
+  constructor() {
+    this.label = ''
     this.options = [new Option(), new Option()]
   }
 }
-export class Option{
+export class Option {
   value: string;
-  users:[]
-  constructor(){
+  users: []
+  constructor() {
     // this.label = label
+    this.users = []
     this.value = ''
   }
 }
-export class AdminState{
+export class AdminState {
   polls: Poll[]
-  pollForm : Poll;
-  showPollForm : boolean
-  constructor(){
+  pollForm: Poll;
+  showPollForm: boolean
+  constructor() {
     this.polls = []
     this.showPollForm = false
     this.pollForm = new Poll()
@@ -36,54 +37,62 @@ export class AdminState{
 }
 const initialState = new AdminState();
 
-const adminReducer= (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case 'ADD_POLL':{
-      state.polls = [...state.polls,state.pollForm]
-      localStorage.setItem("all_polls",JSON.stringify(state.polls))
-      state.pollForm=new Poll
+    case 'ADD_POLL': {
+      state.polls = [...state.polls, state.pollForm]
+      let AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
+      if (AllPolls) {
+        AllPolls = [...AllPolls, state.pollForm]
+        localStorage.setItem("all_polls", JSON.stringify(AllPolls))
+      }
+      else {
+        localStorage.setItem("all_polls", JSON.stringify(state.polls))
+      }
 
-      return {...state, showPollForm:action.value}
+      state.pollForm = new Poll()
+
+      return { ...state, showPollForm: action.value }
 
     }
-    case 'CLOSE_POLL':{
-      const AllPolls=JSON.parse(localStorage.getItem("all_polls"))
+    case 'CLOSE_POLL': {
+      const AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
       console.log(AllPolls)
-      AllPolls[action.index].closed=true
+      AllPolls[action.index].closed = true
       console.log(AllPolls)
-      localStorage.setItem("all_polls",JSON.stringify(AllPolls))
-      return {...state, polls:AllPolls}
+      localStorage.setItem("all_polls", JSON.stringify(AllPolls))
+      return { ...state, polls: AllPolls }
 
     }
-    case 'SHOW_HIDE_POLL_FORM':{
-      state.pollForm=new Poll
-      return {...state, showPollForm:action.value}
+    case 'SHOW_HIDE_POLL_FORM': {
+      state.pollForm = new Poll()
+      return { ...state, showPollForm: action.value }
     }
-    case 'POLL_LABEL_CHANGE':{
-      const pollForm =  state.pollForm;
-      pollForm.label=action.value
-      return {...state, pollForm:pollForm}
+    case 'POLL_LABEL_CHANGE': {
+      const pollForm = state.pollForm;
+      pollForm.label = action.value
+      return { ...state, pollForm: pollForm }
     }
-    case 'QUESTION_LABEL_CHANGE':{
-      const pollForm =  state.pollForm;
-      pollForm.questions[action.index].label=action.label
-      return {...state, pollForm:pollForm}
+    case 'QUESTION_LABEL_CHANGE': {
+      const pollForm = state.pollForm;
+      pollForm.questions[action.index].label = action.label
+      return { ...state, pollForm: pollForm }
     }
-    case 'OPTION_VALUE_CHANGE':{
-      const pollForm =  state.pollForm;
-      pollForm.questions[action.QuestionIndex].options[action.OptionIndex].value=action.Value
-      return {...state, pollForm:pollForm}
+    case 'OPTION_VALUE_CHANGE': {
+      const pollForm = state.pollForm;
+      pollForm.questions[action.QuestionIndex].options[action.OptionIndex].value = action.Value
+      return { ...state, pollForm: pollForm }
     }
-    case 'ADD_OPTION':{
-      const pollForm =  state.pollForm;
+    case 'ADD_OPTION': {
+      const pollForm = state.pollForm;
       pollForm.questions[action.index].options.push(new Option())
-      return {...state, pollForm:pollForm}
+      return { ...state, pollForm: pollForm }
     }
-    case 'ADD_QUESTION':{
-      const pollForm =  state.pollForm;
+    case 'ADD_QUESTION': {
+      const pollForm = state.pollForm;
       pollForm.questions.push(new Question())
-      return {...state, pollForm:pollForm}
+      return { ...state, pollForm: pollForm }
     }
     default:
       return state;
