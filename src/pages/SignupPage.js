@@ -1,9 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { onPasswordChange, onUsernameChange, onSignUp, onUserTypeChange } from '../actions/LoginActions.ts';
 
 function SignUpPage() {
+  const Navigate = useNavigate()
+
   const myState = useSelector((state) => state.LoginReducer)
   const dispatch = useDispatch();
   function UsernameChangeHandler(value) {
@@ -18,6 +21,8 @@ function SignUpPage() {
   }
   function onUserSignup() {
     dispatch(onSignUp())
+    Navigate("/login")
+
   }
   return (
     <>

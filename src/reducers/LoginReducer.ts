@@ -91,22 +91,10 @@ const LoginReducer = (state = initialState, action) => {
 
         }
         case LoginActionTypes.USERNAME_CHANGE: {
-            let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
             const userform = state.userForm
-            const Usernames = AllUsers.map(function (user) { return user.userName })
-            if (Usernames.includes(action.value)) {
-                userform.userName = action.value
-                state.error='user_already_exists'
-                return { ...state,userForm:userform }
-            }
-            else{
             userform.userName = action.value
             state.error=''
             return { ...state ,userForm:userform}
-            }
-
-
-
 
         }
         case LoginActionTypes.PASSWORD_CHANGE: {
