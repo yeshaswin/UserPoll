@@ -1,3 +1,4 @@
+// @ts-ignore
 import { LoginActionTypes } from "../util/ActionTypes.ts"
 export class User {
     userName: string
@@ -53,7 +54,7 @@ const LoginReducer = (state = initialState, action) => {
             return { ...state, userForm: new User() }
 
         }
-        case "USER_LOGIN": {
+        case LoginActionTypes.USER_LOGIN: {
             let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
             let obj = AllUsers.find(user => user.userName === state.userForm.userName);
             if (obj) {
@@ -81,7 +82,7 @@ const LoginReducer = (state = initialState, action) => {
 
 
         }
-        case "USER_LOGOUT": {
+        case LoginActionTypes.USER_LOGOUT: {
             state.loginStatus = false
             state.userType = ''
             state.error = ''
@@ -89,21 +90,32 @@ const LoginReducer = (state = initialState, action) => {
             return { ...state, error: "", loginStatus: false, userType: '', userForm: new User() }
 
         }
-        case "USERNAME_CHANGE": {
+        case LoginActionTypes.USERNAME_CHANGE: {
+            let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
             const userform = state.userForm
+            const Usernames = AllUsers.map(function (user) { return user.userName })
+            if (Usernames.includes(action.value)) {
+                userform.userName = action.value
+                state.error='user_already_exists'
+                return { ...state,userForm:userform }
+            }
+            else{
             userform.userName = action.value
-            return { ...state, userForm: userform }
+            state.error=''
+            return { ...state ,userForm:userform}
+            }
+
 
 
 
         }
-        case "PASSWORD_CHANGE": {
+        case LoginActionTypes.PASSWORD_CHANGE: {
             const userform = state.userForm
             userform.password = action.value
             return { ...state, userForm: userform }
 
         }
-        case "TYPE_CHANGE": {
+        case LoginActionTypes.TYPE_CHANGE: {
             const userform = state.userForm
             userform.type = action.value
             return { ...state, userForm: userform }

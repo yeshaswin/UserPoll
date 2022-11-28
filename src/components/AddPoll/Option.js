@@ -7,7 +7,7 @@ const Option = (props) => {
    }
    return (
       <>
-         <input className="input is-primary" type="text" placeholder="new option" label={props.option.label} value={props.option.value} onChange={(e) => OptionChangeHandler(e)}></input>
+         <input className="input " required name="option" type="text" placeholder="new option" label={props.option.label} value={props.option.value} onChange={(e) => OptionChangeHandler(e)}></input>
       </>
    )
 }

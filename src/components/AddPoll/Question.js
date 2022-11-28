@@ -8,7 +8,7 @@ function Question(props) {
     }
     return (
         <>
-            <input className="input is-primary" type="text" value={props.inputQuestion.label} placeholder="Question" onChange={(e) => dispatch(onQuestionChangeHandler(props.questionIndex, e.target.value))}></input>
+            <input className="input " type="text" value={props.inputQuestion.label} placeholder="Question" required name="question"onChange={(e) => dispatch(onQuestionChangeHandler(props.questionIndex, e.target.value))}></input>
             {props.inputQuestion.options.map((option, index) => {
                 return (
                     <Option option={option} key={index} optionIndex={index} questionIndex={props.questionIndex}></Option>

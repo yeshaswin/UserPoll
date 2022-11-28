@@ -1,5 +1,5 @@
-
-import { UserActionTypes } from './../util/ActionTypes.ts';
+// @ts-ignore
+import { UserActionTypes } from "../util/ActionTypes.ts"
 export class Poll {
   questions: object
   constructor() {
@@ -41,19 +41,19 @@ const UserReducer = (state = initialState, action) => {
       localStorage.setItem("all_polls", JSON.stringify(AllPolls))
       return { ...state, showPollForm: false, pollForm: new Poll() }
     }
-    case "USER_SHOW_POLL_FORM": {
+    case UserActionTypes.USER_SHOW_POLL_FORM: {
       const pollForm = new Poll();
       console.log("open poll", action.index)
       return { ...state, pollForm: pollForm, showPollForm: action.value, currentPoll: action.index }
 
     }
-    case "USER_HIDE_POLL_FORM": {
+    case UserActionTypes.USER_HIDE_POLL_FORM: {
       const pollForm = new Poll();
 
       return { ...state, pollForm: pollForm, showPollForm: action.value, currentPoll: 0 }
 
     }
-    case "USER_OPTION_SELECT": {
+    case UserActionTypes.USER_OPTION_SELECT: {
       const pollForm = state.pollForm;
       pollForm.questions[action.QuestionIndex] = action.OptionIndex
       return { ...state, pollForm: pollForm }

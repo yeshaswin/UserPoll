@@ -1,31 +1,62 @@
-import { onClosePollHandler } from "../../actions/AddPollActions.ts";
+import { onClosePollHandler, onShowChartHandler } from "../../actions/AddPollActions.ts";
 import { useDispatch } from 'react-redux'
+import Chart from "./Charts.tsx";
 function AdminPollsCard(props) {
   const dispatch = useDispatch();
+  let modal_acvtive = "modal "
+  if (props.myState.showChart) {
+    modal_acvtive = "modal is-active"
+  }
+
+  else { modal_acvtive = "modal " }
+  let showStatsButtonStyle = 'none'
+  let closePollButtonStyle = 'block'
+  if (props.poll.closed) {
+    showStatsButtonStyle = 'block'
+    closePollButtonStyle = 'none'
+  }
+  else {
+    showStatsButtonStyle = 'none'
+    closePollButtonStyle = 'block'
+  }
   function ClosePollHandler() {
     dispatch(onClosePollHandler(props.index))
+  }
+  function ShowChartHandler(value) {
+    dispatch(onShowChartHandler(value, props.index))
   }
   return (
     <>
 
       <div className="card" style={{ width: '12rem', display: 'inline-block', margin: '2rem' }}>
-        <header className="card-header">
+        <header className="card-header ">
           <p className="card-header-title">
-            {props.poll.label}
-          </p>
-          <button className="card-header-icon" aria-label="more options">
-            <span className="icon">
-              <i className="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </header>
-        <div className="card-content">
-          <div className="content">
+           
+          {props.poll.label}
 
-          </div>
-        </div>
-        <footer className="card-footer">
-          <button className="card-footer-item" onClick={ClosePollHandler}> Close Poll</button>
+
+
+          </p>
+
+          {(props.index === props.myState.currentPoll) && <div className={modal_acvtive}>
+            <div className="modal-background"></div>
+            <div className="modal-card">
+              <header className="modal-card-head">
+                <p className="modal-card-title">
+                  {props.poll.label}
+                </p>
+                <button className="delete" aria-label="close" onClick={() => ShowChartHandler(false)}></button>
+              </header>
+              <section className="modal-card-body">
+                <Chart poll={props.poll} ></Chart>
+
+              </section>
+            </div>
+          </div>}
+        </header>
+        <button className="button is-primary  is-fullwidth" onClick={() => ShowChartHandler(true)} style={{ display: showStatsButtonStyle }}>Stats</button>
+        <button className="button is-danger  is-fullwidth " onClick={ClosePollHandler} style={{ display: closePollButtonStyle }}> Close Poll</button>        <footer className="card-footer">
+
         </footer>
       </div>
     </>

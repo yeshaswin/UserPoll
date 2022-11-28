@@ -1,3 +1,5 @@
+// @ts-ignore
+import { AdminActionTypes } from "../util/ActionTypes.ts"
 export class Poll {
   label: string
   closed: boolean
@@ -29,10 +31,14 @@ export class AdminState {
   polls: Poll[]
   pollForm: Poll;
   showPollForm: boolean
+  showChart: boolean
+  currentPoll:number
   constructor() {
     this.polls = []
     this.showPollForm = false
     this.pollForm = new Poll()
+    this.showChart=false
+    this.currentPoll=0
   }
 }
 const initialState = new AdminState();
@@ -40,7 +46,7 @@ const initialState = new AdminState();
 const adminReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case 'ADD_POLL': {
+    case AdminActionTypes.ADD_POLL: {
       state.polls = [...state.polls, state.pollForm]
       let AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
       if (AllPolls) {
@@ -56,7 +62,7 @@ const adminReducer = (state = initialState, action) => {
       return { ...state, showPollForm: action.value }
 
     }
-    case 'CLOSE_POLL': {
+    case AdminActionTypes.CLOSE_POLL: {
       const AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
       console.log(AllPolls)
       AllPolls[action.index].closed = true
@@ -65,34 +71,38 @@ const adminReducer = (state = initialState, action) => {
       return { ...state, polls: AllPolls }
 
     }
-    case 'SHOW_HIDE_POLL_FORM': {
+    case AdminActionTypes.SHOW_HIDE_POLL_FORM: {
       state.pollForm = new Poll()
       return { ...state, showPollForm: action.value }
     }
-    case 'POLL_LABEL_CHANGE': {
+    case AdminActionTypes.POLL_LABEL_CHANGE: {
       const pollForm = state.pollForm;
       pollForm.label = action.value
       return { ...state, pollForm: pollForm }
     }
-    case 'QUESTION_LABEL_CHANGE': {
+    case AdminActionTypes.QUESTION_LABEL_CHANGE: {
       const pollForm = state.pollForm;
       pollForm.questions[action.index].label = action.label
       return { ...state, pollForm: pollForm }
     }
-    case 'OPTION_VALUE_CHANGE': {
+    case AdminActionTypes.OPTION_VALUE_CHANGE: {
       const pollForm = state.pollForm;
       pollForm.questions[action.QuestionIndex].options[action.OptionIndex].value = action.Value
       return { ...state, pollForm: pollForm }
     }
-    case 'ADD_OPTION': {
+    case AdminActionTypes.ADD_OPTION: {
       const pollForm = state.pollForm;
       pollForm.questions[action.index].options.push(new Option())
       return { ...state, pollForm: pollForm }
     }
-    case 'ADD_QUESTION': {
+    case AdminActionTypes.ADD_QUESTION: {
       const pollForm = state.pollForm;
       pollForm.questions.push(new Question())
       return { ...state, pollForm: pollForm }
+    }
+    case AdminActionTypes.SHOW_CHART:{
+      state.currentPoll=action.index
+      return {...state,showChart:action.value,currentPoll:action.index}
     }
     default:
       return state;

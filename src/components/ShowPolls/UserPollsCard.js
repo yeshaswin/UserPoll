@@ -1,5 +1,5 @@
 import { onUserViewPollClickHandler } from "../../actions/PollResponseActions.ts"
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 
 function UserPollsCard(props) {
   const dispatch = useDispatch();

@@ -1,22 +1,24 @@
+// @ts-ignore
+
 import { LoginActionTypes } from "../util/ActionTypes.ts"
 export const onSignUp = () => {
     return { type: LoginActionTypes.USER_SIGNUP }
 }
 export const onLogin = () => {
-    return { type: "USER_LOGIN" }
+    return { type: LoginActionTypes.USER_LOGIN }
 }
 export const onLogout = () => {
-    return { type: "USER_LOGOUT" }
+    return { type: LoginActionTypes.USER_LOGOUT }
 }
 export const onUsernameChange = (value) => {
-    return { type: "USERNAME_CHANGE", value: value }
+    return { type: LoginActionTypes.USERNAME_CHANGE, value: value }
 
 }
 export const onPasswordChange = (value) => {
-    return { type: "PASSWORD_CHANGE", value: value }
+    return { type: LoginActionTypes.PASSWORD_CHANGE, value: value }
 
 }
 export const onUserTypeChange = (value) => {
-    return { type: "TYPE_CHANGE", value: value }
+    return { type: LoginActionTypes.TYPE_CHANGE, value: value }
 
 }

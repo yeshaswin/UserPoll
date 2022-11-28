@@ -7,7 +7,8 @@ function PollModal(props) {
     function OptionChangeHandler(questionindex, optionindex) {
         dispatch(onUserSelectOptionHandler(questionindex, optionindex))
     }
-    function SavePollHandler() {
+    function SavePollHandler(e) {
+        e.preventDefault();
         dispatch(onUserSavePollClickHandler(props.LoginState.currentUser))
     }
     function ClosePollHandler() {
@@ -24,6 +25,7 @@ function PollModal(props) {
         <>
             <div className={modal_acvtive}>
                 <div className="modal-background"></div>
+                <form onSubmit={(e)=>SavePollHandler(e)}>
                 {
                     props.AllPolls.map((poll, pollindex) => {
                         return (
@@ -49,7 +51,7 @@ function PollModal(props) {
                                                                     <div key={optionindex}>
                                                                         <div className="control" onChange={() => OptionChangeHandler(questionindex, optionindex)}>
                                                                             <label className="radio">
-                                                                                <input type="radio" name={String(pollindex) + String(questionindex)} ></input>
+                                                                                <input type="radio" name={String(pollindex) + String(questionindex)} required></input>
                                                                                 {option.value}
 
                                                                             </label>
@@ -65,7 +67,7 @@ function PollModal(props) {
                                     </section>
 
                                     <footer className="modal-card-foot">
-                                        <button className="button is-success" onClick={SavePollHandler}>Save changes</button>
+                                        <input className="button is-success" type='submit'  value='Submit Poll'></input>
                                         <button className="button" onClick={ClosePollHandler}>Cancel</button>
                                     </footer>
                                 </div>
@@ -74,6 +76,7 @@ function PollModal(props) {
                         )
                     })
                 }
+                </form>
             </div>
 
 
