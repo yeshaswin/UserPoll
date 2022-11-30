@@ -1,17 +1,17 @@
 import { useDispatch } from 'react-redux'
 import { onUserSavePollClickHandler, onUserClosePollClickHandler, onUserSelectOptionHandler } from "../../actions/PollResponseActions.ts"
 
-function PollModal(props) {
+const PollModal=(props)=> {
     const dispatch = useDispatch();
 
-    function OptionChangeHandler(questionindex, optionindex) {
+    const OptionChangeHandler=(questionindex, optionindex) =>{
         dispatch(onUserSelectOptionHandler(questionindex, optionindex))
     }
-    function SavePollHandler(e) {
+    const SavePollHandler=(e)=> {
         e.preventDefault();
         dispatch(onUserSavePollClickHandler(props.LoginState.currentUser))
     }
-    function ClosePollHandler() {
+    const ClosePollHandler=()=> {
         dispatch(onUserClosePollClickHandler())
     }
     let modal_acvtive = "modal "

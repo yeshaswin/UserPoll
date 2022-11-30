@@ -1,9 +1,9 @@
 import Option from './Option'
 import { useDispatch } from "react-redux";
 import { onAddOptionHandler, onQuestionChangeHandler } from '../../actions/AddPollActions.ts'
-function Question(props) {
+const Question=(props)=> {
     const dispatch = useDispatch();
-    function AddOptionHandler() {
+    const AddOptionHandler=()=> {
         dispatch(onAddOptionHandler(props.questionIndex))
     }
     return (

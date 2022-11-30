@@ -2,19 +2,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { onPasswordChange, onUsernameChange,onLogin} from '../actions/LoginActions.ts';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-function LoginPage() {
+import { Errors } from './../Errors/ErrorCodes.ts';
+const LoginPage=()=> {
   const Navigate = useNavigate()
   const myState = useSelector((state) => state.LoginReducer)
   const dispatch = useDispatch();
 
-  function UsernameChangeHandler(value) {
+  const UsernameChangeHandler=(value)=> {
   
     dispatch(onUsernameChange(value))
   }
-  function passwordChangeHandler(value) {
+  const passwordChangeHandler=(value)=> {
     dispatch(onPasswordChange(value))
   }
-  function onUserLogin() {
+  const onUserLogin=()=> {
     dispatch(onLogin())
     if (myState.loginStatus) {
       if (myState.userType === "User") {
@@ -27,7 +28,7 @@ function LoginPage() {
 
     }
     else {
-      console.log(myState.loginStatus)
+      alert(myState.error)
     }
   }
 
@@ -60,7 +61,10 @@ function LoginPage() {
 
             <div className="field">
             <input className="button is-link is-light" type="submit" onClick={onUserLogin} value="Login"></input>
-            <span> <button className='button is-primary'><Link to="/signup">Sign-Up</Link></button></span>
+            <span  ><p >Don't have an Account? <Link to="/signup" style={{ textDecoration:'underline'}}>Sign-Up</Link></p></span>
+            <span  ><p > <br></br></p></span>
+
+            <span  ><p >On successful Login, you will be redirected to Dashboard</p></span>
 
             </div>
           </form>

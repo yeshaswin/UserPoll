@@ -1,27 +1,34 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { Errors } from '../Errors/ErrorCodes.ts';
 import { onPasswordChange, onUsernameChange, onSignUp, onUserTypeChange } from '../actions/LoginActions.ts';
 
-function SignUpPage() {
+const SignUpPage=() =>{
   const Navigate = useNavigate()
 
   const myState = useSelector((state) => state.LoginReducer)
   const dispatch = useDispatch();
-  function UsernameChangeHandler(value) {
+  const UsernameChangeHandler=(value)=> {
 
     dispatch(onUsernameChange(value))
   }
-  function passwordChangeHandler(value) {
+  const passwordChangeHandler=(value) =>{
     dispatch(onPasswordChange(value))
   }
-  function TypeChangeHandler(value) {
+  const TypeChangeHandler=(value) =>{
     dispatch(onUserTypeChange(value))
   }
-  function onUserSignup() {
+  const onUserSignup=() =>{
     dispatch(onSignUp())
-    Navigate("/login")
+    if(myState.error!==''){
+      alert(myState.error)
+
+    }
+    else{
+      Navigate("/login")
+
+    }
 
   }
   return (
@@ -51,18 +58,19 @@ function SignUpPage() {
                     <label className="label">Role</label>
                     <div className="control">
                       <div className="select">
-                        <select onChange={(e) => TypeChangeHandler(e.target.value)} required>
-                          <option></option>
-
-                          <option>User</option>
-                          <option>Admin</option>
+                        <select onChange={(e) => TypeChangeHandler(e.target.value)} required  name="select_role" value={myState.userForm.type}>
+                          <option value="" disabled>None</option>
+                          <option value="User">User</option>
+                          <option value="Admin">Admin</option>
                         </select>
                       </div>
                     </div>
                   </div>
                   <div className="field">
                     <input className="button is-success" onClick={onUserSignup} type="submit" value="Sign-Up" required></input>
-                    <span> <button className='button is-primary'><Link to="/login">Login</Link></button></span>
+                    <span  ><p >Already have an Account? <Link to="/login" style={{ textDecoration:'underline'}}>Login</Link></p></span>
+                    <span  ><p > <br></br></p></span>
+                    <span  ><p >On successful Signup, you will be redirected to Login Page</p></span>
                   </div>
                 </form>
               </div>

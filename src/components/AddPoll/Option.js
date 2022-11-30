@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { onOptionChangeHandler } from '../../actions/AddPollActions.ts'
 const Option = (props) => {
    const dispatch = useDispatch();
-   function OptionChangeHandler(e) {
+   const OptionChangeHandler=(e)=> {
       dispatch(onOptionChangeHandler(props.questionIndex, props.optionIndex, e.target.value))
    }
    return (

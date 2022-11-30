@@ -1,10 +1,10 @@
 import Question from "./Question";
 import { useSelector, useDispatch } from 'react-redux'
 import { onAddQuestionHandler } from "../../actions/AddPollActions.ts";
-export default function PollForm() {
+ const PollForm=()=> {
     const myState = useSelector((state) => state.adminReducer)
     const dispatch = useDispatch();
-    function AddQuestionHandler() {
+    const AddQuestionHandler=()=> {
         dispatch(onAddQuestionHandler())
     }
     return (
@@ -19,3 +19,4 @@ export default function PollForm() {
         </>
     )
 }
+export default PollForm;

@@ -1,5 +1,7 @@
 // @ts-ignore
 import { LoginActionTypes } from "../util/ActionTypes.ts"
+// @ts-ignore
+import { Errors } from "../Errors/ErrorCodes.ts"
 export class User {
     userName: string
     password: string
@@ -38,11 +40,13 @@ const LoginReducer = (state = initialState, action) => {
             if (AllUsers) {
                 const Usernames = AllUsers.map(function (user) { return user.userName })
                 if (Usernames.includes(userform.userName)) {
-                    return { ...state, userForm: new User(), error: 'user_already_exists' }
+                    state.error= Errors.USER_ALREADY_EXISTS
+                    return { ...state, userForm: new User(), error: Errors.USER_ALREADY_EXISTS }
                 }
                 else {
 
                     AllUsers = [...AllUsers, state.userForm]
+                    state.error= Errors.SIGNUP_SUCCESS
                     localStorage.setItem("all_users", JSON.stringify(AllUsers))
                 }
 
@@ -62,21 +66,23 @@ const LoginReducer = (state = initialState, action) => {
                     state.loginStatus = true
                     state.userType = obj.type
                     state.currentUser = AllUsers.findIndex(user => user.userName === state.userForm.userName);
-
+                    state.error=''
                     return { ...state, userType: obj.type, loginStatus: true, error: '', userForm: new User() }
                 }
                 else {
                     state.loginStatus = false
                     state.userType = ''
                     state.currentUser = -1
-                    return { ...state, error: "wrong_password", loginStatus: false, userType: '', userForm: new User() }
+                    state.error=Errors.WRONG_PASSWORD
+                    return { ...state, error: Errors.WRONG_PASSWORD, loginStatus: false, userType: '', userForm: new User() }
                 }
             }
             else {
                 state.loginStatus = false
                 state.userType = ''
                 state.currentUser = -1
-                return { ...state, error: "user_not_found", loginStatus: false, userType: '', userForm: new User() }
+                state.error=Errors.USER_NOT_FOUND
+                return { ...state, error:Errors.USER_NOT_FOUND, loginStatus: false, userType: '', userForm: new User() }
             }
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-export default function Chart(props) {
+const  Chart=(props)=> {
 
   const optionsArray = []
   props.poll.questions.map((question) => {
@@ -56,3 +56,4 @@ export default function Chart(props) {
     </div>
   );
 }
+export default Chart;
