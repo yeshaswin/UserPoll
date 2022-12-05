@@ -7,9 +7,12 @@ import { onLogout } from './../actions/LoginActions.ts';
 import {useDispatch} from 'react-redux'
 const UserPage=()=> {
   const myState = useSelector((state) => state.UserReducer)
+  const AdminState = useSelector((state) => state.adminReducer)
   const LoginState = useSelector((state) => state.LoginReducer)
-  let currentUser = JSON.parse(localStorage.getItem("all_users"))[LoginState.currentUser]
-  const AllPolls = JSON.parse(localStorage.getItem("all_polls"))
+  // let currentUser = JSON.parse(localStorage.getItem("all_users"))[LoginState.currentUser]
+  let currentUser = LoginState.users[LoginState.currentUser]
+    // const AllPolls = JSON.parse(localStorage.getItem("all_polls"))
+    const AllPolls = AdminState.polls
   const dispatch=useDispatch()
 
   const onUserLogout=()=>{

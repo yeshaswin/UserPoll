@@ -19,7 +19,9 @@ const SignUpPage=() =>{
   const TypeChangeHandler=(value) =>{
     dispatch(onUserTypeChange(value))
   }
-  const onUserSignup=() =>{
+  const onUserSignup=(e) =>{
+    e.preventDefault();
+
     dispatch(onSignUp())
     if(myState.error!==''){
       alert(myState.error)
@@ -39,7 +41,7 @@ const SignUpPage=() =>{
             <div className="columns is-centered">
               <div className="column is-5-tablet is-4-desktop is-3-widescreen">
                 <p className="title is-1">Sign-Up</p>
-                <form action="" className="box">
+                <form action="" className="box" onSubmit={(e)=>onUserSignup(e)}>
                   <div className="field">
                     <label className="label">Username</label>
                     <div className="control has-icons-left">
@@ -67,7 +69,7 @@ const SignUpPage=() =>{
                     </div>
                   </div>
                   <div className="field">
-                    <input className="button is-success" onClick={onUserSignup} type="submit" value="Sign-Up" required></input>
+                    <input className="button is-success"  type="submit" value="Sign-Up" required></input>
                     <span  ><p >Already have an Account? <Link to="/login" style={{ textDecoration:'underline'}}>Login</Link></p></span>
                     <span  ><p > <br></br></p></span>
                     <span  ><p >On successful Signup, you will be redirected to Login Page</p></span>

@@ -15,12 +15,14 @@ export class User {
     }
 }
 export class LoginState {
+    users:User[]
     userForm: User
     error: string
     loginStatus: boolean
     userType: string
     currentUser: number
     constructor() {
+        this.users=[]
         this.userForm = new User()
         this.error = ''
         this.loginStatus = false
@@ -34,7 +36,8 @@ const initialState = new LoginState();
 const LoginReducer = (state = initialState, action) => {
     switch (action.type) {
         case LoginActionTypes.USER_SIGNUP: {
-            let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
+            // let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
+            let AllUsers=state.users
             const userform = state.userForm
 
             if (AllUsers) {
@@ -46,20 +49,29 @@ const LoginReducer = (state = initialState, action) => {
                 else {
 
                     AllUsers = [...AllUsers, state.userForm]
+                    state.users=AllUsers
                     state.error= Errors.SIGNUP_SUCCESS
-                    localStorage.setItem("all_users", JSON.stringify(AllUsers))
+                    state.userForm=new User()
+                    return {...state,users:AllUsers,error:Errors.SIGNUP_SUCCESS,userform:new User()}
+                    // localStorage.setItem("all_users", JSON.stringify(AllUsers))
                 }
 
 
             }
             else {
-                localStorage.setItem("all_users", JSON.stringify([userform]))
+                AllUsers = [...AllUsers, state.userForm]
+                state.users=AllUsers
+                state.error= Errors.SIGNUP_SUCCESS
+                state.userForm=new User()
+                return {...state,users:AllUsers,error:Errors.SIGNUP_SUCCESS,userform:new User()}
+                // localStorage.setItem("all_users", JSON.stringify([userform]))
             }
-            return { ...state, userForm: new User() }
+            // return { ...state, userForm: new User() }
 
         }
         case LoginActionTypes.USER_LOGIN: {
-            let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
+            // let AllUsers = JSON.parse(localStorage.getItem("all_users")!)
+            let AllUsers=state.users
             let obj = AllUsers.find(user => user.userName === state.userForm.userName);
             if (obj) {
                 if ((obj.userName === state.userForm.userName) && (obj.password === state.userForm.password)) {
@@ -114,6 +126,12 @@ const LoginReducer = (state = initialState, action) => {
             userform.type = action.value
             return { ...state, userForm: userform }
 
+        }
+        case LoginActionTypes.UPDATE_USER:{
+            if (!state.users[action.currentUser].submittedPolls.includes(action.currentPoll)) {
+                state.users[action.currentUser].submittedPolls.push(action.currentPoll)
+              }
+              return {...state}
         }
         default: { return state }
 

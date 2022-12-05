@@ -33,3 +33,6 @@ export const onClosePollHandler = (index) => {
 export const onShowChartHandler = (value,index) => {
    return { type: AdminActionTypes.SHOW_CHART,value:value,index:index}
 }
+export const onUpdatePoll =(PollForm,currentPoll,currentUser)=>{
+   return { type: AdminActionTypes.UPDATE_POLL,PollForm:PollForm,currentPoll:currentPoll,currentUser:currentUser}
+}

@@ -22,3 +22,6 @@ export const onUserTypeChange = (value) => {
     return { type: LoginActionTypes.TYPE_CHANGE, value: value }
 
 }
+export const onUpdateUser=(currentPoll,currentUser)=>{
+    return { type: LoginActionTypes.UPDATE_USER,currentPoll:currentPoll,currentUser:currentUser }
+}

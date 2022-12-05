@@ -47,27 +47,21 @@ const adminReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case AdminActionTypes.ADD_POLL: {
-      state.polls = [...state.polls, state.pollForm]
-      let AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
-      if (AllPolls) {
-        AllPolls = [...AllPolls, state.pollForm]
-        localStorage.setItem("all_polls", JSON.stringify(AllPolls))
-      }
-      else {
-        localStorage.setItem("all_polls", JSON.stringify(state.polls))
-      }
-
+      // let AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
+      let AllPolls=state.polls
+      AllPolls=[...AllPolls,state.pollForm]
+      state.polls=AllPolls
+        // localStorage.setItem("all_polls", JSON.stringify(AllPolls))
       state.pollForm = new Poll()
-
       return { ...state, showPollForm: action.value }
 
     }
     case AdminActionTypes.CLOSE_POLL: {
-      const AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
-      console.log(AllPolls)
+      // const AllPolls = JSON.parse(localStorage.getItem("all_polls")!)
+      let AllPolls=state.polls
       AllPolls[action.index].closed = true
-      console.log(AllPolls)
-      localStorage.setItem("all_polls", JSON.stringify(AllPolls))
+      state.polls=AllPolls
+      // localStorage.setItem("all_polls", JSON.stringify(AllPolls))
       return { ...state, polls: AllPolls }
 
     }
@@ -103,6 +97,17 @@ const adminReducer = (state = initialState, action) => {
     case AdminActionTypes.SHOW_CHART:{
       state.currentPoll=action.index
       return {...state,showChart:action.value,currentPoll:action.index}
+    }
+    case AdminActionTypes.UPDATE_POLL:{
+      for (const [key, value] of Object.entries(action.pollForm.questions)) {
+        if (!(state.polls[action.currentPoll].questions[`${key}`].options[`${value}`].users.includes(value))) {
+          state.polls[action.currentPoll].questions[`${key}`].options[`${value}`].users.push(action.value)
+
+
+        }
+
+      }
+      return {...state}
     }
     default:
       return state;

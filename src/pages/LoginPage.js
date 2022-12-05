@@ -15,7 +15,9 @@ const LoginPage=()=> {
   const passwordChangeHandler=(value)=> {
     dispatch(onPasswordChange(value))
   }
-  const onUserLogin=()=> {
+  const onUserLogin=(e)=> {
+    e.preventDefault();
+
     dispatch(onLogin())
     if (myState.loginStatus) {
       if (myState.userType === "User") {
@@ -43,25 +45,25 @@ const LoginPage=()=> {
         <div className="column is-5-tablet is-4-desktop is-3-widescreen">
         <p className="title is-1">Login</p>
 
-          <form action="" className="box">
+          <form action="" className="box" onSubmit={(e)=>onUserLogin(e)}>
             <div className="field">
               <label  className="label">Username</label>
               <div className="control has-icons-left">
-              <input className="input " type="text" required placeholder="Text input" value={myState.userForm.userName} onChange={(e) => UsernameChangeHandler(e.target.value)} ></input>
+              <input className="input " type="text" required placeholder="Username" value={myState.userForm.userName} onChange={(e) => UsernameChangeHandler(e.target.value)} ></input>
 
               </div>
             </div>
             <div className="field">
               <label  className="label">Password</label>
               <div className="control has-icons-left">
-              <input className="input " type="password" required placeholder="Text input" value={myState.userForm.password} onChange={(e) => passwordChangeHandler(e.target.value)}></input>
+              <input className="input " type="password" required placeholder="Password" value={myState.userForm.password} onChange={(e) => passwordChangeHandler(e.target.value)}></input>
 
               </div>
             </div>
 
             <div className="field">
-            <input className="button is-link is-light" type="submit" onClick={onUserLogin} value="Login"></input>
-            <span  ><p >Don't have an Account? <Link to="/signup" style={{ textDecoration:'underline'}}>Sign-Up</Link></p></span>
+            <input className="button is-link is-light" type="submit"  value="Login"></input>
+            <span  ><p >Don't have an Account? <Link to="/signup" style={{ textDecoration:'underline'}} data-testid="Signup_link">Sign-Up</Link></p></span>
             <span  ><p > <br></br></p></span>
 
             <span  ><p >On successful Login, you will be redirected to Dashboard</p></span>

@@ -10,6 +10,7 @@ const PollModal=(props)=> {
     const SavePollHandler=(e)=> {
         e.preventDefault();
         dispatch(onUserSavePollClickHandler(props.LoginState.currentUser))
+        
     }
     const ClosePollHandler=()=> {
         dispatch(onUserClosePollClickHandler())

@@ -8,9 +8,12 @@ import { onLogout } from './../actions/LoginActions.ts';
 const AdminPage=() =>{
   const myState = useSelector((state) => state.adminReducer)
   const LoginState = useSelector((state) => state.LoginReducer)
-  let currentUser = JSON.parse(localStorage.getItem("all_users"))[LoginState.currentUser]
+  // let currentUser = JSON.parse(localStorage.getItem("all_users"))[LoginState.currentUser]
+  let currentUser = LoginState.users[LoginState.currentUser]
+
   const dispatch = useDispatch();
-  const AllPolls = JSON.parse(localStorage.getItem("all_polls"))
+  // const AllPolls = JSON.parse(localStorage.getItem("all_polls"))
+  const AllPolls = myState.polls
   let modal_acvtive = "modal "
   if (myState.showPollForm) modal_acvtive = "modal is-active"
   else modal_acvtive = "modal "
@@ -85,7 +88,7 @@ const AdminPage=() =>{
                 </>
               </div>
             </div>
-            <button className="button is-primary is-rounded is-pulled-right" onClick={AddPollHandler} >+ Add Poll</button>
+            <button className="button is-primary is-rounded is-pulled-right" onClick={AddPollHandler} data-testid="AddpollBtn">+ Add Poll</button>
           </div>
         </div>
 
