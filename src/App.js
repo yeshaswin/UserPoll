@@ -1,6 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
@@ -14,7 +12,7 @@ function App() {
     <>
 
       <Routes>
-        <Route index element={<LoginPage />} ></Route>
+        <Route index element={<AdminPage />} ></Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/user" element={<UserPage />} />
         <Route path="/admin" element={<AdminPage />} />

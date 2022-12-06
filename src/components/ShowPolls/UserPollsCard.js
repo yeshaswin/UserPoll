@@ -1,4 +1,4 @@
-import { onUserViewPollClickHandler } from "../../actions/PollResponseActions.ts"
+import { onUserViewPollClickHandler } from "../../actions/Actions.ts"
 import {  useDispatch } from "react-redux";
 
 const UserPollsCard=(props)=> {

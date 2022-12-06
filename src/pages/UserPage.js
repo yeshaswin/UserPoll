@@ -1,18 +1,16 @@
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import UserPollsCard from "../components/ShowPolls/UserPollsCard";
 import PollModal from "../components/ShowPolls/PollModal";
 import LoginPage from './LoginPage';
 import { Link } from "react-router-dom";
-import { onLogout } from './../actions/LoginActions.ts';
-import {useDispatch} from 'react-redux'
+import { onLogout } from './../actions/Actions.ts';
 const UserPage=()=> {
-  const myState = useSelector((state) => state.UserReducer)
-  const AdminState = useSelector((state) => state.adminReducer)
-  const LoginState = useSelector((state) => state.LoginReducer)
+  const myState = useSelector((state) => state.Reducer)
+  // const AdminState = useSelector((state) => state.adminReducer)
+  // const LoginState = useSelector((state) => state.LoginReducer)
   // let currentUser = JSON.parse(localStorage.getItem("all_users"))[LoginState.currentUser]
-  let currentUser = LoginState.users[LoginState.currentUser]
-    // const AllPolls = JSON.parse(localStorage.getItem("all_polls"))
-    const AllPolls = AdminState.polls
+  let currentUser = myState.users[myState.currentUser]
+  const AllPolls = myState.Adminpolls
   const dispatch=useDispatch()
 
   const onUserLogout=()=>{
@@ -29,7 +27,7 @@ const UserPage=()=> {
 
         </ul>
       </nav>
-      {((LoginState.currentUser!==-1))?<section className="hero is-light is-fullheight">
+      {((myState.currentUser!==-1))?<section className="hero is-light is-fullheight">
         <p className="title is-1">welcome {currentUser.userName}</p>
 
         <div className="hero-body">
@@ -48,7 +46,7 @@ const UserPage=()=> {
                     }):<p> No Live Polls</p>
                   }
                   {
-                    AllPolls&&<PollModal myState={myState} AllPolls={AllPolls} currentUser={currentUser} LoginState={LoginState}></PollModal>
+                    AllPolls&&<PollModal myState={myState} AllPolls={AllPolls} currentUser={currentUser} ></PollModal>
                   }
                 </div>
               </div>

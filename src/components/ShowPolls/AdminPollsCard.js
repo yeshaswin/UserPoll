@@ -1,4 +1,4 @@
-import { onClosePollHandler, onShowChartHandler } from "../../actions/AddPollActions.ts";
+import { onClosePollHandler, onShowChartHandler } from "../../actions/Actions.ts";
 import { useDispatch } from 'react-redux'
 import Chart from "./Charts.tsx";
 const AdminPollsCard=(props) =>{
@@ -38,7 +38,7 @@ const AdminPollsCard=(props) =>{
 
           </p>
 
-          {(props.index === props.myState.currentPoll) && <div className={modal_acvtive}>
+          {(props.index === props.myState.AdminCurrentPoll) && <div className={modal_acvtive}>
             <div className="modal-background"></div>
             <div className="modal-card">
               <header className="modal-card-head">

@@ -2,12 +2,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Errors } from '../Errors/ErrorCodes.ts';
-import { onPasswordChange, onUsernameChange, onSignUp, onUserTypeChange } from '../actions/LoginActions.ts';
+import { onPasswordChange, onUsernameChange, onSignUp, onUserTypeChange } from '../actions/Actions.ts';
 
 const SignUpPage=() =>{
   const Navigate = useNavigate()
 
-  const myState = useSelector((state) => state.LoginReducer)
+  const myState = useSelector((state) => state.Reducer)
   const dispatch = useDispatch();
   const UsernameChangeHandler=(value)=> {
 

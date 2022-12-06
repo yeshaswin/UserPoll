@@ -1,21 +1,17 @@
 import PollForm from "../components/AddPoll/PollForm";
 import { useSelector, useDispatch } from "react-redux";
-import { onAddPollClickHandler, onClosePollClickHandler, onSavePollClickHandler, onPollNameChangeHandler } from '../actions/AddPollActions.ts'
-import PollsCard from "../components/ShowPolls/AdminPollsCard";
+import { onAddPollClickHandler, onClosePollClickHandler, onSavePollClickHandler, onPollNameChangeHandler } from '../actions/Actions.ts'
+import AdminPollsCard from "../components/ShowPolls/AdminPollsCard";
 import LoginPage from "./LoginPage";
 import { Link } from "react-router-dom";
-import { onLogout } from './../actions/LoginActions.ts';
+import { onLogout } from './../actions/Actions.ts';
 const AdminPage=() =>{
-  const myState = useSelector((state) => state.adminReducer)
-  const LoginState = useSelector((state) => state.LoginReducer)
-  // let currentUser = JSON.parse(localStorage.getItem("all_users"))[LoginState.currentUser]
-  let currentUser = LoginState.users[LoginState.currentUser]
-
+  const myState = useSelector((state) => state.Reducer)
+  const currentUser = myState.users[myState.currentUser]
+  const AllPolls = myState.Adminpolls
   const dispatch = useDispatch();
-  // const AllPolls = JSON.parse(localStorage.getItem("all_polls"))
-  const AllPolls = myState.polls
   let modal_acvtive = "modal "
-  if (myState.showPollForm) modal_acvtive = "modal is-active"
+  if (myState.AdminshowPollForm) modal_acvtive = "modal is-active"
   else modal_acvtive = "modal "
   const AddPollHandler=() =>{
     dispatch(onAddPollClickHandler())
@@ -40,7 +36,7 @@ const AdminPage=() =>{
 
         </ul>
       </nav>
-      {((LoginState.currentUser!==-1)&&(currentUser.type==="Admin"))?<section className="hero is-light is-fullheight">
+      {((myState.currentUser!==-1)&&(myState.userType==="Admin"))?<section className="hero is-light is-fullheight">
         <p className="title is-1">Welcome</p>
 
         <div className="hero-body">
@@ -52,7 +48,7 @@ const AdminPage=() =>{
                   <p className="title is-3">Live Polls</p>
                     {AllPolls?AllPolls.map((poll, index) => {
                       return (
-                        !poll.closed && <PollsCard poll={poll} key={index} index={index} myState={myState}></PollsCard>
+                        !poll.closed && <AdminPollsCard poll={poll} key={index} index={index} myState={myState}></AdminPollsCard>
 
                       )
                     }):<p> No Live Polls</p>
@@ -60,7 +56,7 @@ const AdminPage=() =>{
                   <p className="title is-3">Closed Polls</p>
                   {AllPolls?.map((poll, index) => {
                     return (
-                      poll.closed && <PollsCard poll={poll} key={index} index={index} myState={myState} ></PollsCard>
+                      poll.closed && <AdminPollsCard poll={poll} key={index} index={index} myState={myState} ></AdminPollsCard>
 
                     )
                   })}
@@ -70,7 +66,7 @@ const AdminPage=() =>{
                     <div className="modal-background"></div>
                     <div className="modal-card">
                         <header className="modal-card-head">
-                          <input className="input  modal-card-title" type="text" placeholder="Poll Label" required value={myState.pollForm.label} name="pollLabel" onChange={(e) => dispatch(onPollNameChangeHandler(e.target.value))}></input>
+                          <input className="input  modal-card-title" type="text" placeholder="Poll Label" required value={myState.AdminpollForm.label} name="pollLabel" onChange={(e) => dispatch(onPollNameChangeHandler(e.target.value))}></input>
 
                           <button className="delete" aria-label="close" onClick={ClosePollHandler}></button>
                         </header>

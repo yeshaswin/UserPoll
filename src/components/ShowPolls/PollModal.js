@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { onUserSavePollClickHandler, onUserClosePollClickHandler, onUserSelectOptionHandler } from "../../actions/PollResponseActions.ts"
+import { onUserSavePollClickHandler, onUserClosePollClickHandler, onUserSelectOptionHandler } from "../../actions/Actions.ts"
 
 const PollModal=(props)=> {
     const dispatch = useDispatch();
@@ -9,14 +9,14 @@ const PollModal=(props)=> {
     }
     const SavePollHandler=(e)=> {
         e.preventDefault();
-        dispatch(onUserSavePollClickHandler(props.LoginState.currentUser))
+        dispatch(onUserSavePollClickHandler(props.myState.currentUser))
         
     }
     const ClosePollHandler=()=> {
         dispatch(onUserClosePollClickHandler())
     }
     let modal_acvtive = "modal "
-    if (props.myState.showPollForm) {
+    if (props.myState.UsershowPollForm) {
         modal_acvtive = "modal is-active"
     }
 
@@ -30,7 +30,7 @@ const PollModal=(props)=> {
                 {
                     props.AllPolls.map((poll, pollindex) => {
                         return (
-                            (pollindex === props.myState.currentPoll) && <div key={pollindex}>
+                            (pollindex === props.myState.UserCurrentPoll) && <div key={pollindex}>
 
 
                                 <div className="modal-card">

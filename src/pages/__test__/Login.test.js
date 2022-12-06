@@ -6,8 +6,7 @@ import store from '../../store'
 import userEvent from '@testing-library/user-event';
 
 describe('tesating the LoginPage component', () => {
-    beforeEach(() => {
-    })
+
 
     test("render username input", () => {
         render(<BrowserRouter>

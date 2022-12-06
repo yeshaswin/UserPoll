@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { onPasswordChange, onUsernameChange,onLogin} from '../actions/LoginActions.ts';
+import { onPasswordChange, onUsernameChange,onLogin} from '../actions/Actions.ts';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { Errors } from './../Errors/ErrorCodes.ts';
 const LoginPage=()=> {
   const Navigate = useNavigate()
-  const myState = useSelector((state) => state.LoginReducer)
+  const myState = useSelector((state) => state.Reducer)
   const dispatch = useDispatch();
 
   const UsernameChangeHandler=(value)=> {
@@ -62,7 +62,7 @@ const LoginPage=()=> {
             </div>
 
             <div className="field">
-            <input className="button is-link is-light" type="submit"  value="Login"></input>
+            <input className="button is-link is-light" type="submit"  value="Login" data-testid='LoginBtn'></input>
             <span  ><p >Don't have an Account? <Link to="/signup" style={{ textDecoration:'underline'}} data-testid="Signup_link">Sign-Up</Link></p></span>
             <span  ><p > <br></br></p></span>
 

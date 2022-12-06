@@ -1,8 +1,8 @@
 import Question from "./Question";
 import { useSelector, useDispatch } from 'react-redux'
-import { onAddQuestionHandler } from "../../actions/AddPollActions.ts";
+import { onAddQuestionHandler } from "../../actions/Actions.ts";
  const PollForm=()=> {
-    const myState = useSelector((state) => state.adminReducer)
+    const myState = useSelector((state) => state.Reducer)
     const dispatch = useDispatch();
     const AddQuestionHandler=()=> {
         dispatch(onAddQuestionHandler())
@@ -10,7 +10,7 @@ import { onAddQuestionHandler } from "../../actions/AddPollActions.ts";
     return (
 
         <>
-            {myState.pollForm.questions.map((question, index) => {
+            {myState.AdminpollForm.questions.map((question, index) => {
                 return (
                     <Question inputQuestion={question} key={index} questionIndex={index}></Question>
                 )
