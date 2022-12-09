@@ -1,9 +1,9 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const  Chart=(props)=> {
+const Chart = (props): JSX.Element => {
 
-  const optionsArray = []
+  const optionsArray: any[] = []
   props.poll.questions.map((question) => {
     const getOptions = () => ({
       title: {
@@ -43,9 +43,9 @@ const  Chart=(props)=> {
   return (
     <div>
       {
-        optionsArray.map((getOptions,index) => {
+        optionsArray.map((getOptions, index) => {
           return (
-            <ReactEcharts option={getOptions()} style={{ height: 300 }} key={index}/>
+            <ReactEcharts option={getOptions()} style={{ height: 300 }} key={index} />
 
           )
         })

@@ -1,7 +1,5 @@
-// @ts-ignore
-import { AdminActionTypes, UserActionTypes, LoginActionTypes } from "../util/ActionTypes.ts"
-// @ts-ignore
-import { Errors } from "../Errors/ErrorCodes.ts"
+import { AdminActionTypes, UserActionTypes, LoginActionTypes } from "../util/ActionTypes"
+import { Errors } from "../Errors/ErrorCodes"
 
 export class AdminPoll {
     label: string
@@ -29,7 +27,7 @@ export class Question {
 }
 export class Option {
     value: string;
-    users: []
+    users: any []
     constructor() {
         // this.label = label
         this.users = []
@@ -40,7 +38,7 @@ export class User {
     userName: string
     password: string
     type: string
-    submittedPolls: []
+    submittedPolls: any[]
     constructor() {
         this.userName = ''
         this.password = ''

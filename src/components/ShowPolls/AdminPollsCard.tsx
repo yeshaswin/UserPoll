@@ -1,7 +1,8 @@
-import { onClosePollHandler, onShowChartHandler } from "../../actions/Actions.ts";
+import React from "react";
+import { onClosePollHandler, onShowChartHandler } from "../../actions/Actions";
 import { useDispatch } from 'react-redux'
-import Chart from "./Charts.tsx";
-const AdminPollsCard=(props) =>{
+import Chart from "./Charts";
+const AdminPollsCard = (props): JSX.Element => {
   const dispatch = useDispatch();
   let modal_acvtive = "modal "
   if (props.myState.showChart) {
@@ -19,10 +20,10 @@ const AdminPollsCard=(props) =>{
     showStatsButtonStyle = 'none'
     closePollButtonStyle = 'block'
   }
-  const ClosePollHandler=()=> {
+  const ClosePollHandler = () => {
     dispatch(onClosePollHandler(props.index))
   }
-  const ShowChartHandler=(value)=> {
+  const ShowChartHandler = (value) => {
     dispatch(onShowChartHandler(value, props.index))
   }
   return (
@@ -31,8 +32,8 @@ const AdminPollsCard=(props) =>{
       <div className="card" style={{ width: '12rem', display: 'inline-block', margin: '2rem' }}>
         <header className="card-header ">
           <p className="card-header-title">
-           
-          {props.poll.label}
+
+            {props.poll.label}
 
 
 

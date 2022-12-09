@@ -1,10 +1,12 @@
+import React from 'react';
 import Question from "./Question";
 import { useSelector, useDispatch } from 'react-redux'
-import { onAddQuestionHandler } from "../../actions/Actions.ts";
- const PollForm=()=> {
-    const myState = useSelector((state) => state.Reducer)
+import { onAddQuestionHandler } from "../../actions/Actions";
+import { RootState } from 'store';
+const PollForm = (): JSX.Element => {
+    const myState = useSelector((state: RootState) => state.Reducer)
     const dispatch = useDispatch();
-    const AddQuestionHandler=()=> {
+    const AddQuestionHandler = () => {
         dispatch(onAddQuestionHandler())
     }
     return (
