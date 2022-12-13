@@ -4,6 +4,8 @@ import { onPasswordChange, onUsernameChange, onLogin } from '../actions/Actions'
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { RootState } from 'store';
+import { ToastContainer, toast } from 'react-toastify';
+
 const LoginPage = (): JSX.Element => {
   const Navigate = useNavigate()
   const myState = useSelector((state: RootState) => state.Reducer)
@@ -31,7 +33,7 @@ const LoginPage = (): JSX.Element => {
 
     }
     else {
-      alert(myState.error)
+      toast(myState.error)
     }
   }
 
@@ -39,6 +41,7 @@ const LoginPage = (): JSX.Element => {
   return (
     <>
       <section className="hero is-light is-fullheight">
+      <ToastContainer />
 
         <div className="hero-body">
           <div className="container">

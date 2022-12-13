@@ -4,6 +4,7 @@ import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from './pages/SignupPage';
+import 'react-toastify/dist/ReactToastify.css';
 
 import 'bulma/css/bulma.min.css'
 const App = (): JSX.Element => {

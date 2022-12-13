@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import { onUserSavePollClickHandler, onUserClosePollClickHandler, onUserSelectOptionHandler } from "../../actions/Actions"
+import { ToastContainer, toast } from 'react-toastify';
 
 const PollModal = (props): JSX.Element => {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const PollModal = (props): JSX.Element => {
     const SavePollHandler = (e) => {
         e.preventDefault();
         dispatch(onUserSavePollClickHandler(props.myState.currentUser))
+        toast("POLL SUBMITTED")
 
     }
     const ClosePollHandler = () => {
@@ -25,6 +27,8 @@ const PollModal = (props): JSX.Element => {
 
     return (
         <>
+                <ToastContainer />
+
             <div className={modal_acvtive}>
                 <div className="modal-background"></div>
                 <form onSubmit={(e) => SavePollHandler(e)}>

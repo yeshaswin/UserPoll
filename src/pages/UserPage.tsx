@@ -39,14 +39,26 @@ const UserPage = (): JSX.Element => {
               <div className="column  is-10-desktop ">
                 <div>
                   <p className="title is-3">Live Polls</p>
-                  {
-                    AllPolls ? AllPolls.map((poll, index) => {
 
-                      return (
-                        (!poll.closed && !(currentUser.submittedPolls.includes(index))) && <UserPollsCard poll={poll} key={index} index={index} ></UserPollsCard>
-                      )
-                    }) : <p> No Live Polls</p>
-                  }
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Poll</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        AllPolls ? AllPolls.map((poll, index) => {
+
+                          return (
+                            (!poll.closed && !(currentUser.submittedPolls.includes(index))) && <UserPollsCard poll={poll} key={index} index={index} ></UserPollsCard>
+                          )
+                        }) : <p> No Live Polls</p>
+                      }
+
+                    </tbody>
+                  </table>
                   {
                     AllPolls && <PollModal myState={myState} AllPolls={AllPolls} currentUser={currentUser} ></PollModal>
                   }

@@ -61,6 +61,7 @@ export class State {
     loginStatus: boolean
     userType: string
     currentUser: number
+    Toast:boolean
     constructor() {
         this.Adminpolls = []
         this.AdminshowPollForm = false
@@ -76,6 +77,7 @@ export class State {
         this.loginStatus = false
         this.userType = ''
         this.currentUser = -1
+        this.Toast=false
     }
 }
 const initialState = new State();

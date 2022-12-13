@@ -10,15 +10,13 @@ const UserPollsCard = (props): JSX.Element => {
 
   return (
     <>
-      <div className="card" style={{ width: '12rem', display: 'inline-block', margin: '2rem' }}>
-        <header className="card-header">
-          <p className="card-header-title">
-            {props.poll.label}
-          </p>
-          <button className="card-header-icon" aria-label="more options" onClick={OpenPollHandler}>open
+      <tr>
+        <th>{props.poll.label}</th>
+        <td>
+          <button className="button is-primary  is-fullwidth" aria-label="more options" onClick={OpenPollHandler}>open
           </button>
-        </header>
-      </div>
+        </td>
+      </tr>
     </>
 
   )

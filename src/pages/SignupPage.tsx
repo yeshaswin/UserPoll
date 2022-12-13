@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { onPasswordChange, onUsernameChange, onSignUp, onUserTypeChange } from '../actions/Actions';
 import { RootState } from 'store';
+import { ToastContainer, toast } from 'react-toastify';
+
 const SignUpPage = (): JSX.Element => {
   const Navigate = useNavigate()
 
@@ -24,7 +26,8 @@ const SignUpPage = (): JSX.Element => {
 
     dispatch(onSignUp())
     if (myState.error !== '') {
-      alert(myState.error)
+
+      toast(myState.error);
 
     }
     else {
@@ -36,6 +39,7 @@ const SignUpPage = (): JSX.Element => {
   return (
     <>
       <section className="hero is-light is-fullheight">
+        <ToastContainer />
         <div className="hero-body">
           <div className="container">
             <div className="columns is-centered">

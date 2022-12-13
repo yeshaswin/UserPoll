@@ -7,6 +7,8 @@ import LoginPage from "./LoginPage";
 import { Link } from "react-router-dom";
 import { onLogout } from './../actions/Actions';
 import { RootState } from "store";
+import { ToastContainer, toast } from 'react-toastify';
+
 const AdminPage = (): JSX.Element => {
   const myState = useSelector((state: RootState) => state.Reducer)
   const dispatch = useDispatch();
@@ -23,13 +25,17 @@ const AdminPage = (): JSX.Element => {
   const SavePollHandler = (e) => {
     e.preventDefault();
     dispatch(onSavePollClickHandler())
+    toast("POLL SAVED")
+
   }
   const onUserLogout = () => {
     dispatch(onLogout())
   }
   return (
     <div>
-      <nav className="navbar " role="navigation" aria-label="main navigation">
+      <ToastContainer />
+
+      <nav className="navbar  is-fixed-top" role="navigation" aria-label="main navigation">
         <ul className="navbar-menu">
           <li className="navbar-item navbar-end">
             <Link to="/login" onClick={onUserLogout}>Logout</Link>
@@ -45,22 +51,26 @@ const AdminPage = (): JSX.Element => {
             <div className="columns is-centered">
               <div className="column is-10-desktop ">
                 <>
-                  <div>
-                    <p className="title is-3">Live Polls</p>
-                    {AllPolls ? AllPolls.map((poll, index) => {
-                      return (
-                        !poll.closed && <AdminPollsCard poll={poll} key={index} index={index} myState={myState}></AdminPollsCard>
+                  <p className="title is-3">Polls</p>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Poll</th>
+                        <th>Stats</th>
+                        <th>Close</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {AllPolls ? AllPolls.map((poll, index) => {
+                        return (
+                          <AdminPollsCard poll={poll} key={index} index={index} myState={myState}></AdminPollsCard>
 
-                      )
-                    }) : <p> No Live Polls</p>
-                    }</div>
-                  <p className="title is-3">Closed Polls</p>
-                  {AllPolls?.map((poll, index) => {
-                    return (
-                      poll.closed && <AdminPollsCard poll={poll} key={index} index={index} myState={myState} ></AdminPollsCard>
+                        )
+                      }) : <p> No Live Polls</p>
+                      }
 
-                    )
-                  })}
+                    </tbody>
+                  </table>
                   <form onSubmit={(e) => SavePollHandler(e)} >
 
                     <div className={modal_acvtive}>
