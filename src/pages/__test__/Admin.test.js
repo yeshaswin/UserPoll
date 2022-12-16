@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux"
 import store from '../../store'
 import userEvent  from '@testing-library/user-event';
-import { hasUncaughtExceptionCaptureCallback } from 'process';
 describe("Testing Admin Page",()=>{
   let myStore=store
   myStore.getState().Reducer={ ...myStore.getState().Reducer,
