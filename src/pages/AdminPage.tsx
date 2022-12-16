@@ -85,7 +85,7 @@ const AdminPage = (): JSX.Element => {
                           <PollForm />
                         </section>
                         <footer className="modal-card-foot">
-                          <input className="button is-success" type="submit" value="Create Poll"></input>
+                          <input className="button is-success" type="submit" value="Create Poll" data-testid="CreatePoll"></input>
                           <button className="button" onClick={ClosePollHandler}>Cancel</button>
                         </footer>
 
@@ -95,7 +95,7 @@ const AdminPage = (): JSX.Element => {
                 </>
               </div>
             </div>
-            <button className="button is-primary is-rounded is-pulled-right" onClick={AddPollHandler} data-testid="AddpollBtn">+ Add Poll</button>
+            <button className="button is-primary is-rounded is-pulled-right" onClick={AddPollHandler} data-testid="AddpollBtn" >+ Add Poll</button>
           </div>
         </div>
 

@@ -15,7 +15,7 @@ const Question = (props): JSX.Element => {
                     <Option option={option} key={index} optionIndex={index} questionIndex={props.questionIndex}></Option>
                 )
             })}
-            <button className="button is-primary is-rounded" onClick={AddOptionHandler}>+Option</button>
+            <button className="button is-primary is-rounded" onClick={AddOptionHandler} data-testid="AddOptnBtn">+Option</button>
         </>
     )
 }

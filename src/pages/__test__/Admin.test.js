@@ -1,42 +1,58 @@
-import { render, screen, fireEvent, getByTestId } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import AdminPage from '../AdminPage';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux"
 import store from '../../store'
-import  userEvent  from '@testing-library/user-event';
+import userEvent  from '@testing-library/user-event';
+import { hasUncaughtExceptionCaptureCallback } from 'process';
 describe("Testing Admin Page",()=>{
-         test("render Add poll button",async ()=>{
+  let myStore=store
+  myStore.getState().Reducer={ ...myStore.getState().Reducer,
+    loginStatus:true,
+    currentUser:0,
+    userType:"Admin",
+    users: [
+    {
+      userName: 'admin',
+      password: 'admin',
+      type: 'Admin',
+      submittedPolls: []
+    },
+    {
+      userName: 'user',
+      password: 'user',
+      type: 'User',
+      submittedPolls: []
+    }
+  ],}
+  const produceComponent = () =>
+    render(
+      <BrowserRouter>
+      <Provider store={myStore}>
+          <AdminPage />
+      </Provider>
+  </BrowserRouter>
+    );
 
+         test("render Add poll button",async ()=>{          
+          produceComponent();
+            const AddPollBtn=screen.getByTestId("AddpollBtn");
+            expect(AddPollBtn).toBeTruthy()
 
-            render(  <BrowserRouter>
-                <Provider store={store}>
-                    <AdminPage />
-                </Provider>
-            </BrowserRouter>) 
-              console.log(userEvent)
-
-//   const user = userEvent.setup()
-  const SignupLink=screen.getByTestId("Signup_link")
-            await userEvent.click(SignupLink)
-            // console.log(SignupLink)
-            const Signup_Username = screen.getByTestId('Signup_Username')
-            expect(Signup_Username ).toBeTruthy()
-            // const Signup_Password = screen.getByTestId('Signup_Password')
-            // const Signup_Type=screen.getByTestId('Signup_Type')
-            // userEvent.type(Signup_Username, 'Admin')
-            // userEvent.type(Signup_Password, '12345')
-            // fireEvent.change(Signup_Type, { target: { value: 'Admin' } })
-            // const Login_Link=screen.getByTestId("Login_link")
-            // fireEvent.click(Login_Link)
-            // const LoginUsername = screen.getByPlaceholderText('Username')
-            // const LoginPassword = screen.getByPlaceholderText('Password')
-            // userEvent.type(LoginUsername, 'Admin')
-            // userEvent.type(LoginPassword, '12345')
-            // const LoginBtn=screen.getByTestId('LoginBtn')
-            // fireEvent.click(LoginBtn)
-            // const AddPollbtn=screen.getByTestId('AddpollBtn')
-            // expect(AddPollbtn).toBeTruthy()
-
-
+         })
+         test("Click Add poll button",async ()=>{          
+          produceComponent();
+            const AddPollBtn=screen.getByTestId("AddpollBtn");
+            userEvent.click(AddPollBtn)
+         })
+         test("poll form to display",async()=>{
+          produceComponent()
+          const AddQstnBtn=screen.getByTestId("AddQstnBtn");
+          const AddOptnBtn=screen.getByTestId("AddOptnBtn");
+          const CreatePoll=screen.getByTestId("CreatePoll")
+          expect(AddQstnBtn).toBeTruthy()
+          expect(AddOptnBtn).toBeTruthy()
+          expect(CreatePoll).toBeTruthy()
+          
          })
 })

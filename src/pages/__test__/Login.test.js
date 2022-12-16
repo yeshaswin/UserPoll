@@ -44,18 +44,4 @@ describe('tesating the LoginPage component', () => {
         const DisplaySignupLink = screen.getByTestId('Signup_link')
         expect(DisplaySignupLink).toBeTruthy()
     })
-    test("login button test", () => {
-        render(<BrowserRouter>
-            <Provider store={store}>
-                <LoginPage />
-            </Provider>
-        </BrowserRouter>)
-        const DisplayUsername = screen.getByPlaceholderText('Username')
-        const DisplayPassword = screen.getByPlaceholderText('Password')
-        userEvent.type(DisplayUsername, '')
-        userEvent.type(DisplayPassword, '')
-        expect(DisplayUsername).toHaveAttribute('required')
-        expect(DisplayPassword).toHaveAttribute('required')
-        expect(DisplayPassword).toHaveAttribute('type', 'password')
-    })
 })

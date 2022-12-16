@@ -17,7 +17,7 @@ const PollForm = (): JSX.Element => {
                     <Question inputQuestion={question} key={index} questionIndex={index}></Question>
                 )
             })}
-            <button className="button is-primary is-rounded" onClick={AddQuestionHandler}>+Add Question</button>
+            <button className="button is-primary is-rounded" onClick={AddQuestionHandler} data-testid="AddQstnBtn">+Add Question</button>
         </>
     )
 }
